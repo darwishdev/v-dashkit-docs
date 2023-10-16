@@ -25,11 +25,12 @@ const uploadHandler: UploadHandler = {
     uploadEndpoint: uploadFile,
 }
 
-const config: VueDashKitConfig = {
+const config: VueDashKitConfig<typeof apiClient> = {
     formKitConfig: formKitConfig as any,
     loginHandler,
     uploadHandler,
     permissionsHandler,
+    apiClient,
     baseImportDataUrl: import.meta.env.VITE_BASE_IMPORT_URL,
     fallBackImageUrl: import.meta.env.VITE_FALLBACK_IMG,
     baseImageUrl: import.meta.env.VITE_BASE_IMG,

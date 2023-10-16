@@ -62,6 +62,15 @@ const router = createRouter({
           },
           component: () => import('@/views/RoleCreateView.vue')
         },
+        {
+          path: '/roles/:id/update',
+          name: 'role_update',
+          meta: {
+            loadingType: 'form',
+            breadcrumbs: [{ label: "roles", to: { name: 'roles_list' } }, { label: "update" }]
+          },
+          component: () => import('@/views/RoleUpdateView.vue')
+        },
       ]
     },
     {

@@ -2,6 +2,7 @@
 
 <script setup lang="ts">
 import DataList from 'v-dashkit/data/DataList';
+import { useNotificationStore } from 'v-dashkit/stores'
 import type { RolesListResponse, RolesListRow } from '@buf/ahmeddarwish_mln-rms-core.bufbuild_es/rms/v1/users_role_definitions_pb'
 import apiClient from '@/api/ApiClient';
 import { TableHeaderText, TableHeaderCount, TableHeaderLink, TableHeaderDate } from 'v-dashkit/utils/table'
@@ -9,7 +10,12 @@ import { FilterMatchMode } from 'primevue/api';
 import { useI18n } from 'vue-i18n'
 import type { DataListProps, TableRouter, ITableHeader } from 'v-dashkit/types';
 
+const no = useNotificationStore()
 
+const op = () => {
+    console.log("asdsad")
+    no.showSuccess("asd", "asd")
+}
 // import { convertDateRedable } from '@/utils/date/date';
 const { t } = useI18n()
 
@@ -118,7 +124,7 @@ const tableProps: DataListProps<RolesListResponse, RolesListRow> = {
                     </div>
                 </template>
                 <template #end="{ data }">
-                    <h1>{{ data.roleName }} </h1>
+                    <h1 @click="op">{{ data.roleName }} </h1>
                     <h4>{{ $t('createdAt') }} : </h4>
                     <span class="text-center"> {{ data.createdAt }} </span>
                 </template>
