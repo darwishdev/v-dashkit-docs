@@ -5,7 +5,7 @@ import { useI18n } from 'vue-i18n';
 import { getRoleFormProps } from './RoleForm'
 const { t } = useI18n()
 
-const formProps = await getRoleFormProps(t, 'create')
+const formProps = await getRoleFormProps(t, 'update')
 </script>
 <template>
     <app-form :formProps="formProps" />
