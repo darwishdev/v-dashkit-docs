@@ -1,18 +1,13 @@
 <script setup lang="ts">
-import type { ITableHeader } from '@/types/types';
-
-import DataList from '../components/data/DataList.vue';
-// import dataListCardLoading from '../components/Loading/dataListCardLoading.vue';
-// import dataListTableLoading from '../components/Loading/dataListTableLoading.vue';
+import DataList from 'v-dashkit/data/DataList';
 import apiClient from '../api/ApiMock';
+import type { DataListProps, TableRouter, ITableHeader } from 'v-dashkit/types';
+import { TableHeaderText, TableHeaderCount, TableHeaderLink, TableHeaderImage } from 'v-dashkit/utils/table'
 import type { ProductListResponse, productsListRow } from '../api/ApiTypes';
-import { TableHeaderText, TableHeaderCount, TableHeaderLink, TableHeaderDate, TableHeaderImage } from '../utils/table/TableHeader'
 import { FilterMatchMode } from 'primevue/api';
-import { useI18n } from 'vue-i18n'
-import type { DataListProps, TableRouter } from '@/types/types';
-import { useThemeStore } from '../stores/theme';
-const themeStore = useThemeStore()
 const { t } = useI18n()
+
+import { useI18n } from 'vue-i18n'
 
 const dataKey = "productId"
 const viewRouter: TableRouter = {
@@ -134,9 +129,7 @@ const headers2: Record<string, ITableHeader> = {
         router: viewRouter
     }),
 }
-themeStore.startProgressBar()
 const { records, deletedRecords, options } = await apiClient.productsList()
-themeStore.stopProgressBar()
 
 
 
@@ -153,10 +146,8 @@ const tableProps: DataListProps<ProductListResponse, productsListRow> = {
 }
 </script>
 <template>
-    <!-- <dataListCardLoading></dataListCardLoading>
-    <dataListTableLoading></dataListTableLoading> -->
     <div>
-        <h1 class="text-center">AppTable Component</h1>
+        <h1 class="text-center">DataList Component</h1>
         <p class="w-9 m-auto my-4 text-center">The DataList component is designed to display data in a table or cards view.
             It provides flexibility by allowing you to control its behavior through various props. This documentation will
             guide you on how to use the component and the props you need to pass to customize its functionality.
@@ -588,4 +579,3 @@ const tableProps: DataListProps<ProductListResponse, productsListRow> = {
     }
 }
 </style>
-@/types/types../types/types

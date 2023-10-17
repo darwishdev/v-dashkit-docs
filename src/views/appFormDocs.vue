@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import AppForm from '@/components/form/AppForm.vue';
+import AppForm from 'v-dashkit/form/AppForm';
 import type { RoleCreateRequest, RoleCreateResponse } from '@buf/ahmeddarwish_mln-rms-core.bufbuild_es/rms/v1/users_role_definitions_pb'
-import type { AppFormProps } from '@/types/types';
+import type { AppFormProps } from 'v-dashkit/types';
 import apiClient from '@/api/ApiClient';
+
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n()
+
 
 const formProps: AppFormProps<RoleCreateRequest, RoleCreateResponse> = {
     title: "role_create",
@@ -17,38 +19,39 @@ const formProps: AppFormProps<RoleCreateRequest, RoleCreateResponse> = {
             {
                 $formkit: 'text',
                 prefixIcon: "tools",
-                outerClass: "col-12 sm:col-6 md:col-4",
+                outerClass: "col-12 sm:col-6 md:col-5",
                 name: "roleName",
-                placeholder: t("roleName")
+                validation: "required",
+                placeholder: t("roleName"),
+                label: t("roleName")
             },
             {
                 $formkit: 'textarea',
                 prefixIcon: "text",
-                outerClass: "col-12 sm:col-6 md:col-8",
+                outerClass: "col-12 sm:col-6 md:col-5",
                 name: "roleDescription",
-                placeholder: t("roleDescription")
+                placeholder: t("roleDescription"),
+                label: t("roleDescription")
             }
 
         ],
-        // 'security': {
-        //     isTitleHidden: true,
-        //     isTransparent: true,
-        //     inputs: [
-        //         {
-        //             $cmp: 'FormKit',
+        'security': {
+            isTitleHidden: true,
+            isTransparent: true,
+            inputs: [
+                {
+                    $cmp: 'FormKit',
+                    props: {
+                        outerClass: "w-full",
+                        type: 'permissions',
+                        name: 'permissions',
 
-        //             props: {
-        //                 outerClass: "w-full",
-        //                 type: 'permissions',
-        //                 name: 'permissions',
-        //                 onInput: (req: any) => {
-        //                     console.log('any', ObjectKeys(req), req, req[0])
-        //                 },
-        //                 toggleable: false,
-        //             }
-        //         }
-        //     ]
-        // }
+                        toggleable: false
+
+                    }
+                }
+            ]
+        }
     }
 }
 </script>
@@ -215,6 +218,6 @@ const formProps: AppFormProps<RoleCreateRequest, RoleCreateResponse> = {
             </ol>
         </div>
         <h1 class="my-5">Example Usage : </h1>
-        <AppForm :title="formProps.title" :sections="formProps.sections" :submitHandler="formProps.submitHandler" />
+        <AppForm :formProps="formProps" />
     </div>
-</template>@/types/types
+</template>

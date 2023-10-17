@@ -44,6 +44,57 @@ const router = createRouter({
           component: () => import('@/views/ProfileView.vue')
         },
         {
+          path: '/appForm',
+          name: 'app_form',
+          meta: {
+            loadingType: 'form',
+            breadcrumbs: [{ label: "app_form", to: { name: 'app_form' } }],
+          },
+          component: () => import('../views/appFormDocs.vue')
+        },
+        {
+          path: '/installation',
+          name: 'installation_docs',
+          meta: {
+            loadingType: 'form',
+            breadcrumbs: [{ label: "installation_docs", to: { name: 'installation_docs' } }],
+          },
+          component: () => import('../views/InstallationDocs.vue')
+        },
+        {
+          path: '/dataList',
+          name: 'data_list',
+          meta: {
+            loadingType: 'table',
+            breadcrumbs: [{ label: "data_list", to: { name: 'data_list' } }],
+          },
+          component: () => import('../views/dataListDocs.vue')
+        },
+        {
+          path: '/products/:id',
+          name: 'products_find',
+          meta: {
+            breadcrumbs: [{ label: "products", to: { name: 'data_list' } }, { label: "view" }]
+          },
+          component: () => import('../views/productsView.vue')
+        },
+        {
+          path: '/products/:id/update',
+          name: 'products_update',
+          meta: {
+            breadcrumbs: [{ label: "products", to: { name: 'data_list' } }, { label: "update" }]
+          },
+          component: () => import('../views/productsUpdate.vue')
+        },
+        {
+          path: '/products/create',
+          name: 'products_create',
+          meta: {
+            breadcrumbs: [{ label: "products", to: { name: 'data_list' } }, { label: "Create" }],
+          },
+          component: () => import('../views/productCreate.vue')
+        },
+        {
           path: '/roles',
           name: 'roles_list',
           meta: {
