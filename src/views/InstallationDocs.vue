@@ -80,8 +80,46 @@
               },<br>
               // Other routes...<br>
             ];
-            
+        </h3>
+        <h2 class="my-4">authMiddleware Function</h2>
+        <div class="bg-card p-4">
+            <h4 class="text-white">The authMiddleware function is used as a navigation guard in the router file to authorize users before
+                accessing certain routes. It checks if the user is authenticated and has the necessary permissions to proceed.
+                If the user is authorized, the function allows navigation to the requested route. Otherwise, it redirects the user to the login page.
+            </h4>
+        </div>
+        <h3 class="my-4">Parameters</h3>
+        <ul class="bg-card p-4">
+            <li><h3>to : <span class="text-sm mx-2">Represents the target route that the user is trying to navigate to.</span></h3></li>
+            <li><h3>from : <span class="text-sm mx-2">Represents the current route that the user is navigating from.</span></h3></li>
+            <li><h3>next : <span class="text-sm mx-2">A function that needs to be called to proceed to the target route.</span></h3></li>
+        </ul>
+        <h3 class="my-4">Usage in Router Configuration</h3>
+        <h4 class="text-white">The authMiddleware function can be used as a beforeEnter guard for specific routes in the router configuration.
+            Here's an example:</h4>
+        <div class="bg-card p-4 my-2">
+            <h3>
+                const router = createRouter({ <br>
+                    history: createWebHistory(import.meta.env.BASE_URL),<br>
+                    routes: [<br>
+                      {<br>
+                        path: '/',<br>
+                        component: AppLayout,<br>
+                        beforeEnter: authMiddleware,<br>
+                      },<br>
+                      // Other routes...<br>
+                    ],<br>
+                  });                  
             </h3>
+        </div>
+        <h4 class="text-white my-3">By adding beforeEnter: authMiddleware to a route configuration, the authMiddleware function will
+            be executed before accessing that specific route. It ensures that only authorized users can access the protected
+            routes and redirects others to the login page if necessary.
+        </h4>
+        <h4 class="text-white my-3">Note: Make sure to import the necessary dependencies (NavigationGuard, RouteLocationNormalized,
+             NavigationGuardNext) from the appropriate router module.
+        </h4>
+            
         </div>
     </div>
 </template>
