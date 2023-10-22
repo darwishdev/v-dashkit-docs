@@ -62,6 +62,15 @@ const router = createRouter({
           component: () => import('../views/InstallationDocs.vue')
         },
         {
+          path: '/base',
+          name: 'baseComponents_docs',
+          meta: {
+            loadingType: 'form',
+            breadcrumbs: [{ label: "Base Components", to: { name: 'baseComponents_docs' } }],
+          },
+          component: () => import('../views/baseComponentsDocs.vue')
+        },
+        {
           path: '/dataList',
           name: 'data_list',
           meta: {
@@ -95,6 +104,43 @@ const router = createRouter({
           component: () => import('../views/productCreate.vue')
         },
         {
+          path: '/districts',
+          name: 'districts_list',
+          meta: {
+            loadingType: 'table',
+            breadcrumbs: [{ label: "districts_list", to: { name: 'districts_list' } }],
+
+          },
+          component: () => import('@/views/DistrictsListView.vue')
+        },
+        {
+          path: '/districts/create',
+          name: 'district_create',
+          meta: {
+            loadingType: 'form',
+            breadcrumbs: [{ label: "districts", to: { name: 'districts_list' } }, { label: "Create" }],
+          },
+          component: () => import('@/views/DistrictCreateView.vue')
+        },
+        {
+          path: '/districts/:id/update',
+          name: 'district_update',
+          meta: {
+            loadingType: 'form',
+            breadcrumbs: [{ label: "districts", to: { name: 'districts_list' } }, { label: "Update" }]
+          },
+          component: () => import('@/views/DistrictUpdateView.vue')
+        },
+        {
+          path: '/district/:id',
+          name: 'districts_find',
+          meta: {
+            loadingType: 'form',
+            breadcrumbs: [{ label: "districts", to: { name: 'districts_list' } }, { label: "Find" }]
+          },
+          component: () => import('@/views/DistrictUpdateView.vue')
+        },
+        {
           path: '/roles',
           name: 'roles_list',
           meta: {
@@ -121,6 +167,110 @@ const router = createRouter({
             breadcrumbs: [{ label: "roles", to: { name: 'roles_list' } }, { label: "update" }]
           },
           component: () => import('@/views/RoleUpdateView.vue')
+        },
+        {
+          path: '/users',
+          name: 'users_list',
+          meta: {
+            loadingType: 'card',
+            breadcrumbs: [{ label: "users_list", to: { name: 'users_list' } }],
+
+          },
+          component: () => import('@/views/UsersListView.vue')
+        },
+        {
+          path: '/users/create',
+          name: 'user_create',
+          meta: {
+            loadingType: 'form',
+            breadcrumbs: [{ label: "users", to: { name: 'users_list' } }, { label: "User Create" }],
+          },
+          component: () => import('@/views/UserCreateView.vue')
+        },
+        {
+          path: '/users/:id/update',
+          name: 'user_update',
+          meta: {
+            loadingType: 'form',
+            breadcrumbs: [{ label: "users", to: { name: 'users_list' } }, { label: "update" }]
+          },
+          component: () => import('@/views/UserUpdateView.vue')
+        },
+        {
+          path: '/cities',
+          name: 'cities_list',
+          meta: {
+            loadingType: 'card',
+            breadcrumbs: [{ label: "cities_list", to: { name: 'cities_list' } }],
+
+          },
+          component: () => import('@/views/Cities/CitiesListView.vue')
+        },
+        {
+          path: '/cities/create',
+          name: 'city_create',
+          meta: {
+            loadingType: 'form',
+            breadcrumbs: [{ label: "cities", to: { name: 'city_create' } }, { label: "Create" }],
+          },
+          component: () => import('@/views/Cities/CityCreateView.vue')
+        },
+        {
+          path: '/cities/:id/update',
+          name: 'city_update',
+          meta: {
+            loadingType: 'form',
+            breadcrumbs: [{ label: "cities", to: { name: 'city_create' } }, { label: "Update" }]
+          },
+          component: () => import('@/views/Cities/CityUpdateView.vue')
+        },
+        
+        {
+          path: '/cities/:id',
+          name: 'cities_find',
+          meta: {
+            loadingType: 'form',
+            breadcrumbs: [{ label: "cities", to: { name: 'cities_list' } }, { label: "Find" }]
+          },
+          component: () => import('@/views/Cities/CityFindView.vue')
+        },
+
+        {
+          path: '/neighbourhoods',
+          name: 'neighbourhoods_list',
+          meta: {
+            loadingType: 'table',
+            breadcrumbs: [{ label: "neighbourhoods_list", to: { name: 'neighbourhoods_list' } }],
+
+          },
+          component: () => import('@/views/NeighbourhoodsListView.vue')
+        },
+        {
+          path: '/neighbourhoods/create',
+          name: 'neighbourhood_create',
+          meta: {
+            loadingType: 'form',
+            breadcrumbs: [{ label: "neighbourhoods", to: { name: 'neighbourhoods_list' } }, { label: "Create" }],
+          },
+          component: () => import('@/views/NeighbourhoodCreateView.vue')
+        },
+        {
+          path: '/neighbourhoods/:id/update',
+          name: 'neighbourhood_update',
+          meta: {
+            loadingType: 'form',
+            breadcrumbs: [{ label: "neighbourhoods", to: { name: 'neighbourhoods_list' } }, { label: "Update" }]
+          },
+          component: () => import('@/views/NeighbourhoodUpdateView.vue')
+        },
+        {
+          path: '/neighbourhoods/:id',
+          name: 'neighbourhoods_find',
+          meta: {
+            loadingType: 'form',
+            breadcrumbs: [{ label: "neighbourhoods", to: { name: 'neighbourhoods_list' } }, { label: "Find" }]
+          },
+          component: () => import('@/views/NeighbourhoodFindView.vue')
         },
       ]
     },
