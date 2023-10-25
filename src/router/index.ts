@@ -272,6 +272,43 @@ const router = createRouter({
           },
           component: () => import('@/views/NeighbourhoodFindView.vue')
         },
+        {
+          path: '/customers',
+          name: 'customers_list',
+          meta: {
+            loadingType: 'card',
+            breadcrumbs: [{ label: "customers_list", to: { name: 'customers_list' } }],
+
+          },
+          component: () => import('@/views/customers/CustomersListView.vue')
+        },
+        {
+          path: '/customers/create',
+          name: 'customer_create',
+          meta: {
+            loadingType: 'form',
+            breadcrumbs: [{ label: "customers", to: { name: 'customers_list' } }, { label: "Create" }],
+          },
+          component: () => import('@/views/customers/CustomersCreateView.vue')
+        },
+        {
+          path: '/customers/:id/update',
+          name: 'customer_update',
+          meta: {
+            loadingType: 'form',
+            breadcrumbs: [{ label: "customers", to: { name: 'customers_list' } }, { label: "Update" }]
+          },
+          component: () => import('@/views/customers/CustomersUpdateView.vue')
+        },
+        {
+          path: '/customers/:id',
+          name: 'customers_find',
+          meta: {
+            loadingType: 'form',
+            breadcrumbs: [{ label: "customers", to: { name: 'customers_list' } }, { label: "Find" }]
+          },
+          component: () => import('@/views/customers/CustomerFindView.vue')
+        },
       ]
     },
     {
