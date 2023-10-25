@@ -1,59 +1,150 @@
-
-<script lang="ts">
-const mockAwait = () => {
-    setTimeout(() => {
-        return new Promise((r: any) => {
-            r(null)
-        })
-    }, 2000)
-
-}
-</script>
 <script setup lang="ts">
-// import AppTable from 'v-dashkit/types';
-// import apiClient from '@/api/ApiClient';
+import Button from 'primevue/button';
+import { useAuthStore } from 'v-dashkit/stores';
+import type { AppFormProps} from 'v-dashkit/types';
 import { ref } from 'vue';
-import { RoleCreateRequest } from "@buf/ahmeddarwish_mln-rms-core.bufbuild_es/rms/v1/users_role_definitions_pb"
-import type { ConnectError } from "@connectrpc/connect";
+import AppForm from 'v-dashkit/form/AppForm';
+import supabase from '@/api/Supabase';
+import { useI18n } from 'vue-i18n';
+import type { UserResetPasswordResponse } from '@buf/ahmeddarwish_mln-rms-core.bufbuild_es/rms/v1/users_user_definitions_pb'
+import type { UserResponse } from '@supabase/gotrue-js/dist/module/lib/types';
 import apiClient from '@/api/ApiClient';
-// import { TableHeaderText, TableHeaderImage, TableHeaderPrice, TableHeaderTag, TableHeaderLink } from '@/utils/table/TableHeader'
-await mockAwait()
-// const data = await apiClient.ingredientsList({})
-const submitted = ref(false)
-const submitHandler = async (req: any) => {
-    // Let's pretend this is an ajax request:
-    await new Promise((r) => {
-        console.log(req)
-        const request: RoleCreateRequest = new RoleCreateRequest()
-        request.roleName = req.roleName
-        request.roleDescription = req.roleDescription
-        request.permissions = [1000]
-        console.log(request.roleName)
-        apiClient.roleCreate(request).then((res: any) => {
-            console.log(res)
-            submitted.value = true
-            r(null)
-        }).catch((e: ConnectError) => {
-            // console.log("error", e.findDetails())
-            console.log("error", e.rawMessage)
-            r(null)
-        })
+const authStore = useAuthStore()
+await authStore.init()
+const { t } = useI18n()
+
+// const user = authStore.user
+const user = JSON.parse(localStorage.getItem('user') as string)
+const appFormElementRef = ref()
+let userCreatedAt = new Date(user?.createdAt as string).toDateString()
+console.log(user);
+
+const updateUserPw = (req : {password : string , password_confirm : string}): Promise<UserResetPasswordResponse> => {
+    return new Promise((resolve, reject) => {
+        supabase.auth.updateUser({password : req.password}).then((result : UserResponse) => {
+            if (!result.error) {
+            apiClient.userResetPassword({userEmail : result.data.user.email , userPassword : req.password})
+            .then((apiClientResponse : UserResetPasswordResponse) => {
+                resolve(apiClientResponse)
+                
+            }).catch((apiClientError) => {
+                reject(apiClientError)
+            });
+            }
+            else{
+                reject(new Error('reset_pw_invalid'))
+            }
+        }).catch((err) => {
+            reject(err)
+        });
     })
 }
 
 
+const formProps: AppFormProps<any, any> = {
+  title: 'Security',
+  options: {
+    isBulkCreateHidden: true,
+    isFormTransparent: false,
+    isSuccessNotificationHidden: false,
+    successMessageSummary: 'password_reset_successfull',
+    successMessageDetail: 'password_reset_successfull_details',
+    isHeaderSubmitHidden: true
+  },
+  submitHandler: {
+    endpoint: updateUserPw,
+  },
+  sections: {
+    'Reset Password': {
+      isTransparent: false,
+      inputs: [
+        {
+          $formkit: 'password',
+          prefixIcon: "password",
+          outerClass: "col-12 md:col-6",
+          validation: "required",
+          name: "password",
+          placeholder: t("enter your new password"),
+          label: t("password")
+        },
+        {
+          $formkit: 'password',
+          prefixIcon: "password",
+          outerClass: "col-12 md:col-6",
+          validation: "required|password|confirm",
+          name: "password_confirm",
+          placeholder: t("please re-enter your new password"),
+          label: t("confirm password")
+        },
+      ]
+    }
+  }
+}
+
 </script>
+
 <template>
-    <div>
-        <h4 class="form-label">Creating the form</h4>
+    <div class="my-3">
+        <div class="w-full p-5 relative overflow-hidden border-round"
+            style="background-image: linear-gradient(180deg, #c94b6287 0%, #ec4dbc84 100%); height: 30vh; border-bottom-left-radius: 0px !important; border-bottom-right-radius: 0px !important;">
+            <img src="../assets/MelonLogo.svg" alt="" class="opacity-50 absolute logoPosition">
+        </div>
+        <div class="w-full border-round-bottom p-5 relative userImage" style="background-color: var(--color-dialog);">
+            <app-image :src="user!.userImage" preview alt="profile pic" class="absolute"
+                style="top: -130px; left: 40px;" />
+            <div class="ml-4 pt-5 mt-4 px-2">
+                <h1 class="font-bold text-4xl">{{ user!.userName }}</h1>
+                <h3 class="py-2">{{user!.userEmail }}</h3>
+                <ul class="flex flex-row p-0 m-0" style="list-style: disc; color: #898989;">
+                    <li class="list-none mr-3">
+                        <h3 class="text-white">{{ user!.userPhone }}</h3>
+                    </li>
+                    <li class="mx-2">
+                        <h3 class="text-white">Joined at {{ userCreatedAt }}
+                        </h3>
+                    </li>
+                </ul>
+                <div class="py-4 flex buttons">
+                    <router-link class="edit" :to="{ name: 'user_update', params: { id: user!.userId } }">
+                        <Button label="Edit Personal Data" raised />
+                    </router-link>
+                    <!-- <Button label="Reset Password" raised class="mx-3" severity="Primary"
+                        @click="resetPwDialog(responseData.user.userId)" /> -->
+                </div>
+            </div>
+        </div>
     </div>
-    <h1>New Character</h1>
 
-    <FormKit type="form" @submit="submitHandler">
-        <FormKit type="text" name="roleName" id="name" validation="required" label="Name"
-            help="Enter your character's full name" placeholder="“Scarlet Sword”" />
-        <FormKit type="text" name="roleDescription" id="description" validation="required" label="description"
-            help="Enter your character's full description" placeholder="“Scarlet Sword”" />
+    <!-- User Owned Roles -->
+    <div class="my-5 bg-card p-4 border-round">
+        <h1 class="my-2">Owned Roles</h1>
+        <div class="w-7 flex flex-wrap" v-if="user!.roles.length > 0">
+            <h3 v-for="(role , index) in user!.roles" class="p-2 px-3 border-round my-1 mx-1" :key="index"
+                style="color: #256029; background-color: #c8e6c9d3;">{{ role.roleName }}</h3>
+        </div>
+        <div v-else>
+            <h1 class="text-primary text-center p-5 m-auto">There are no owned roles yet!</h1>
+        </div>
+    </div>
 
-    </FormKit>
+
+    <!-- <app-form ref="appFormElementRef" :options="formProps.options" :title="formProps.title"
+    :sections="formProps.sections" :submitHandler="formProps.submitHandler" /> -->
+    <app-form :formProps="formProps" />
 </template>
+<style>
+.logoPosition {
+    right: -20px; 
+    bottom: -15px;
+    width: 13%;
+    background: none;
+}
+
+@media screen and (max-width : 500px){
+    .logoPosition {
+        right: -7px;
+        bottom: -14px;
+        width: 38%;
+    }
+}
+</style>
