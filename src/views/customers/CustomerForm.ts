@@ -134,16 +134,17 @@ const customerCreate = (req : CustomerCreateRequest): Promise<CustomerCreateResp
     })
 }
 
-// const userUpdate = (req : UserUpdateRequest): Promise<UserUpdateResponse> => {
-//     return new Promise((resolve, reject) => {
-//             apiClient.userUpdate(req)
-//             .then((apiClientResponse : UserUpdateResponse) => {
-//                 resolve(apiClientResponse)
-//             }).catch((apiClientError) => {
-//                 reject(apiClientError)
-//             });
-//     })    
-// }
+const customerUpdate = (req : CustomerUpdateRequest): Promise<CustomerUpdateResponse> => {
+    console.log(req);
+    return new Promise((resolve, reject) => {
+            apiClient.customerUpdate(req)
+            .then((apiClientResponse : CustomerUpdateResponse) => {
+                resolve(apiClientResponse)
+            }).catch((apiClientError) => {
+                reject(apiClientError)
+            });
+    })    
+}
 
 const redirectRoute = 'customers_list'
 
@@ -168,7 +169,7 @@ export const getCustomerFormProps =
     const formProps = {
       title: 'customer_update',
       submitHandler: {
-        endpoint: apiClient.customerUpdate,
+        endpoint: customerUpdate,
         redirectRoute,
       },
       sections: getUpdateSections(t),
