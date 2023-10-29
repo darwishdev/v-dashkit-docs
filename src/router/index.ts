@@ -309,6 +309,191 @@ const router = createRouter({
           },
           component: () => import('@/views/customers/CustomerFindView.vue')
         },
+        {
+          path: '/categories',
+          name: 'categories_list',
+          meta: {
+            loadingType: 'card',
+            breadcrumbs: [{ label: "categories_list", to: { name: 'categories_list' } }],
+
+          },
+          component: () => import('@/views/Categories/categoriesList.vue')
+        },
+        {
+          path: '/categories/create',
+          name: 'category_create',
+          meta: {
+            loadingType: 'form',
+            breadcrumbs: [{ label: "categories", to: { name: 'categories_list' } }, { label: "Create" }],
+          },
+          component: () => import('@/views/Categories/CategoryCreate.vue')
+        },
+        {
+          path: '/categories/:id/update',
+          name: 'category_update',
+          meta: {
+            loadingType: 'form',
+            breadcrumbs: [{ label: "categories", to: { name: 'categories_list' } }, { label: "Update" }]
+          },
+          component: () => import('@/views/Categories/CategoryUpdate.vue')
+        },
+        {
+          path: '/categories/:id',
+          name: 'categories_find',
+          meta: {
+            loadingType: 'form',
+            breadcrumbs: [{ label: "categories", to: { name: 'categories_list' } }, { label: "Find" }]
+          },
+          component: () => import('@/views/Categories/CategoryFind.vue')
+        },
+        {
+          path: '/units',
+          name: 'units_list',
+          meta: {
+            loadingType: 'table',
+            breadcrumbs: [{ label: "units_list", to: { name: 'units_list' } }],
+
+          },
+          component: () => import('@/views/Units/UnitsList.vue')
+        },
+        {
+          path: '/units/create',
+          name: 'unit_create',
+          meta: {
+            loadingType: 'form',
+            breadcrumbs: [{ label: "units", to: { name: 'units_list' } }, { label: "Create" }],
+          },
+          component: () => import('@/views/Units/UnitCreate.vue')
+        },
+        {
+          path: '/units/:id/update',
+          name: 'unit_update',
+          meta: {
+            loadingType: 'form',
+            breadcrumbs: [{ label: "units", to: { name: 'units_list' } }, { label: "Update" }]
+          },
+          component: () => import('@/views/Units/UnitUpdate.vue')
+        },
+        {
+          path: '/units/:id',
+          name: 'units_find',
+          meta: {
+            loadingType: 'form',
+            breadcrumbs: [{ label: "units", to: { name: 'units_list' } }, { label: "Find" }]
+          },
+          component: () => import('@/views/Units/UnitFind.vue')
+        },
+        {
+          path: '/branches',
+          name: 'branches_list',
+          meta: {
+            loadingType: 'card',
+            breadcrumbs: [{ label: "branches_list", to: { name: 'branches_list' } }],
+
+          },
+          component: () => import('@/views/Branches/branchesList.vue')
+        },
+        {
+          path: '/branches/create',
+          name: 'branch_create',
+          meta: {
+            loadingType: 'form',
+            breadcrumbs: [{ label: "branches", to: { name: 'branches_list' } }, { label: "Create" }],
+          },
+          component: () => import('@/views/Branches/branchCreate.vue')
+        },
+        {
+          path: '/branches/:id/update',
+          name: 'branch_update',
+          meta: {
+            loadingType: 'form',
+            breadcrumbs: [{ label: "branches", to: { name: 'branches_list' } }, { label: "Update" }]
+          },
+          component: () => import('@/views/Branches/branchUpdate.vue')
+        },
+        {
+          path: '/branches/:id',
+          name: 'branches_find',
+          meta: {
+            loadingType: 'form',
+            breadcrumbs: [{ label: "branches", to: { name: 'branches_list' } }, { label: "Find" }]
+          },
+          component: () => import('@/views/Branches/branchFind.vue')
+        },
+        {
+          path: '/warehouses',
+          name: 'warehouses_list',
+          meta: {
+            loadingType: 'card',
+            breadcrumbs: [{ label: "warehouses_list", to: { name: 'warehouses_list' } }],
+
+          },
+          component: () => import('@/views/Warehouses/warehousesList.vue')
+        },
+        {
+          path: '/warehouses/create',
+          name: 'warehouse_create',
+          meta: {
+            loadingType: 'form',
+            breadcrumbs: [{ label: "warehouses", to: { name: 'warehouses_list' } }, { label: "Create" }],
+          },
+          component: () => import('@/views/Warehouses/warehouseCreate.vue')
+        },
+        {
+          path: '/warehouses/:id/update',
+          name: 'warehouse_update',
+          meta: {
+            loadingType: 'form',
+            breadcrumbs: [{ label: "warehouses", to: { name: 'warehouses_list' } }, { label: "Update" }]
+          },
+          component: () => import('@/views/Warehouses/warehouseaUpdate.vue')
+        },
+        {
+          path: '/warehouses/:id',
+          name: 'warehouses_find',
+          meta: {
+            loadingType: 'form',
+            breadcrumbs: [{ label: "warehouses", to: { name: 'warehouses_list' } }, { label: "Find" }]
+          },
+          component: () => import('@/views/Warehouses/warehouseFind.vue')
+        },
+        {
+          path: '/products',
+          name: 'products_list',
+          meta: {
+            loadingType: 'card',
+            breadcrumbs: [{ label: "products_list", to: { name: 'products_list' } }],
+
+          },
+          component: () => import('@/views/Products/productsList.vue')
+        },
+        {
+          path: '/products/create',
+          name: 'product_create',
+          meta: {
+            loadingType: 'form',
+            breadcrumbs: [{ label: "products", to: { name: 'products_list' } }, { label: "Create" }],
+          },
+          component: () => import('@/views/Products/productCreate.vue')
+        },
+        {
+          path: '/products/:id/update',
+          name: 'product_update',
+          meta: {
+            loadingType: 'form',
+            breadcrumbs: [{ label: "products", to: { name: 'products_list' } }, { label: "Update" }]
+          },
+          component: () => import('@/views/Products/productUpdate.vue')
+        },
+        {
+          path: '/products/:id',
+          name: 'products_find',
+          meta: {
+            loadingType: 'form',
+            breadcrumbs: [{ label: "products", to: { name: 'products_list' } }, { label: "Find" }]
+          },
+          component: () => import('@/views/Products/productFind.vue')
+        },
       ]
     },
     {
