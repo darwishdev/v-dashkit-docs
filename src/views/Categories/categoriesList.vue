@@ -104,7 +104,7 @@ const tableProps: DataListProps<CategoriesListResponse, CategoriesListRow> = {
                     </div>
                 </template>
                 <template #end="{ data }">
-                    <h1 class="mt-3">{{ data.categoryName }}</h1>
+                    <h1 class="mt-3 flex justify-content-center m-auto">{{ data.categoryName }}</h1>
                     <div class="flex flex-column justify-content-center">
                         <h4>{{ $t('productsCount') }} : </h4>
                         <span class="text-center"> {{ data.productsCount }} </span>
