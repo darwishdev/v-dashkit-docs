@@ -97,7 +97,7 @@ const tableProps: DataListProps<WarehousesListResponse, WarehousesListRow> = {
                     </div>
                 </template>
                 <template #end="{ data }">
-                    <div class="mt-2 w-full text-center" style="margin: auto; display: flex; justify-content: center;">
+                    <div class="mt-2 w-full text-center align-items-center m-auto" style="margin: auto; display: flex; justify-content: center;">
                         <h2>{{ data.warehouseName }} </h2>
                     </div>
                     <h4>{{ $t('createdAt') }} </h4>
