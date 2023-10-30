@@ -101,8 +101,8 @@ const tableProps: DataListProps<DistrictsListResponse, DistrictsListRow> = {
     deletedRecords: deletedRecords,
     viewRouter: viewRouter,
     displayType: "table",
-    fetchFn: apiClient.districtsList,
-    options: options!,
+    fetchFn: apiClient.districtsList as any,
+    options: options! as any,
     headers
 }
 

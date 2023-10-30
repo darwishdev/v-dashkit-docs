@@ -110,8 +110,8 @@ const tableProps: DataListProps<NeighbourhoodsListResponse, NeighbourhoodsListRo
     deletedRecords: deletedRecords,
     viewRouter: viewRouter,
     displayType: "table",
-    fetchFn: apiClient.neighbourhoodsList,
-    options: options!,
+    fetchFn: apiClient.neighbourhoodsList as any,
+    options: options! as any,
     headers
 }
 

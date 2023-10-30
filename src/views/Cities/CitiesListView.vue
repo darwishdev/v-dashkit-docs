@@ -88,8 +88,8 @@ const tableProps: DataListProps<CitiesListResponse, CitiesListRow> = {
     deletedRecords: deletedRecords,
     viewRouter: viewRouter,
     displayType: "card",
-    fetchFn: apiClient.citiesList,
-    options: options!,
+    fetchFn: apiClient.citiesList as any,
+    options: options! as any,
     headers
 }
 

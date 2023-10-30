@@ -98,8 +98,8 @@ const tableProps: DataListProps<RolesListResponse, RolesListRow> = {
     deletedRecords: deletedRecords,
     viewRouter: viewRouter,
     displayType: "card",
-    fetchFn: apiClient.rolesList,
-    options: options!,
+    fetchFn: apiClient.rolesList as any,
+    options: options! as any,
     headers
 }
 

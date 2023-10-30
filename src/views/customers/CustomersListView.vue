@@ -90,8 +90,8 @@ const tableProps: DataListProps<CustomersListResponse, CustomersListRow> = {
     deletedRecords: deletedRecords,
     viewRouter: viewRouter,
     displayType: "card",
-    fetchFn: apiClient.customersList,
-    options: options!,
+    fetchFn: apiClient.customersList as any,
+    options: options! as any,
     headers
 }
 

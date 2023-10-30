@@ -80,28 +80,28 @@ const router = createRouter({
           component: () => import('../views/dataListDocs.vue')
         },
         {
-          path: '/products/:id',
-          name: 'products_find',
+          path: 'example/products/:id',
+          name: 'example_products_find',
           meta: {
             breadcrumbs: [{ label: "products", to: { name: 'data_list' } }, { label: "view" }]
           },
-          component: () => import('../views/productsView.vue')
+          component: () => import('../views/exampleProductsView.vue')
         },
         {
-          path: '/products/:id/update',
-          name: 'products_update',
+          path: 'example/products/:id/update',
+          name: 'products_update_example',
           meta: {
             breadcrumbs: [{ label: "products", to: { name: 'data_list' } }, { label: "update" }]
           },
-          component: () => import('../views/productsUpdate.vue')
+          component: () => import('../views/exampleProductsUpdate.vue')
         },
         {
-          path: '/products/create',
-          name: 'products_create',
+          path: 'example/products/create',
+          name: 'products_create_example',
           meta: {
             breadcrumbs: [{ label: "products", to: { name: 'data_list' } }, { label: "Create" }],
           },
-          component: () => import('../views/productCreate.vue')
+          component: () => import('../views/ExampleProductCreate.vue')
         },
         {
           path: '/districts',

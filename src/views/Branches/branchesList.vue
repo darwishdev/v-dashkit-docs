@@ -77,8 +77,8 @@ const tableProps: DataListProps<BranchesListResponse, BranchesListRow> = {
     deletedRecords: deletedRecords,
     viewRouter: viewRouter,
     displayType: "card",
-    fetchFn: apiClient.branchesList,
-    options: options!,
+    fetchFn: apiClient.branchesList as any,
+    options: options! as any,
     headers
 }
 

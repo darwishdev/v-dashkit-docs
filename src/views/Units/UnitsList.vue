@@ -95,8 +95,8 @@ const tableProps: DataListProps<UnitsListResponse, UnitsListRow> = {
     deletedRecords: deletedRecords,
     viewRouter: viewRouter,
     displayType: "table",
-    fetchFn: apiClient.unitsList,
-    options: options!,
+    fetchFn: apiClient.unitsList as any,
+    options: options! as any,
     headers
 }
 

@@ -84,8 +84,8 @@ const tableProps: DataListProps<CategoriesListResponse, CategoriesListRow> = {
     deletedRecords: deletedRecords,
     viewRouter: viewRouter,
     displayType: "card",
-    fetchFn: apiClient.categoriesList,
-    options: options!,
+    fetchFn: apiClient.categoriesList as any,
+    options: options! as any,
     headers
 }
 

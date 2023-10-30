@@ -166,7 +166,7 @@ export const getCustomerFormProps =
       return formProps;
     }
   
-    const formProps = {
+    const formProps : any = {
       title: 'customer_update',
       submitHandler: {
         endpoint: customerUpdate,
@@ -178,8 +178,8 @@ export const getCustomerFormProps =
         requestPropertyName: 'customerId',
       },
     };
-  
     return formProps;
+  
   };
 
 
