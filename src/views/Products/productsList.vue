@@ -143,8 +143,8 @@ const tableProps: DataListProps<ProductsListResponse, ProductsListRow> = {
     deletedRecords: deletedRecords,
     viewRouter: viewRouter,
     displayType: "table",
-    fetchFn: apiClient.productsList,
-    options: options!,
+    fetchFn: apiClient.productsList as any,
+    options: options! as any,
     headers
 }
 
