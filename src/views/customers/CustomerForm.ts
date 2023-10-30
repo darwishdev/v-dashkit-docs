@@ -126,7 +126,7 @@ const customerCreate = (req : CustomerCreateRequest): Promise<CustomerCreateResp
             });
             }
             else{
-                reject(new Error('customer_create_invalid'))
+                reject(new Error(result.error.message))
             }
         }).catch((err) => {
             reject(err)

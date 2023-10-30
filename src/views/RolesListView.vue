@@ -124,9 +124,9 @@ const tableProps: DataListProps<RolesListResponse, RolesListRow> = {
                     </div>
                 </template>
                 <template #end="{ data }">
-                    <h1 @click="op">{{ data.roleName }} </h1>
+                    <h2 class="mt-2">{{ data.roleName }} </h2>
                     <h4>{{ $t('createdAt') }} : </h4>
-                    <span class="text-center"> {{ data.createdAt }} </span>
+                    <span class="text-center"> {{ new Date(data.createdAt).toDateString() }} </span>
                 </template>
             </DataList>
         </template>

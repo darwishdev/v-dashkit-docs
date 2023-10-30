@@ -59,21 +59,33 @@ const getCreateSections = (t: Function , roles : any): Record<string, AppFormSec
                     // size: 500
                 }
             },
-            {
-                $cmp: 'FormKit',
-                props: {
-                    outerClass: "col-6 mt-5 py-3 mx-5",
-                    type: 'toggle',
-                    name: 'inviteEmail',
-                    id : 'invitation',
-                    label: 'Create user without pw',
-                }
-            },
+            // {
+            //     $cmp: 'FormKit',
+            //     props: {
+            //         outerClass: "col-6 mt-5 py-3 mx-5",
+            //         type: 'toggle',
+            //         name: 'inviteEmail',
+            //         id : 'invitation',
+            //         label: 'Create user without pw',
+            //     }
+            // },
+            // {
+            //     $formkit: 'taglist',
+            //     outerClass: "col-12",
+            //     closeOnSelect: false,
+            //     name: 'roles',
+            //     label: 'roles',
+            //     multiple : true,
+            //     placeholder: 'Select User Roles',
+            //     "empty-message": "No roles found",
+            //     validation : 'required',
+            //     options: roles,                
+            // },
         ],
         '': [
             {
                 $el: 'div',
-                if : '$get(invitation).value != true',
+                // if : '$get(invitation).value != true',
                 attrs: {
                     class: 'w-full'
                 },
@@ -113,19 +125,19 @@ const getCreateSections = (t: Function , roles : any): Record<string, AppFormSec
                 ]
             },
         ],
-        'User Roles': [
-            {
-                $formkit: 'taglist',
-                outerClass: "col-12",
-                closeOnSelect: false,
-                name: 'roles',
-                label: 'roles',
-                multiple : true,
-                placeholder: 'Select User Roles',
-                "empty-message": "No roles found",
-                options: roles,                
-            },
-        ],
+        // 'User Roles': [
+        //     {
+        //         $formkit: 'taglist',
+        //         outerClass: "col-12",
+        //         closeOnSelect: false,
+        //         name: 'roles',
+        //         label: 'roles',
+        //         multiple : true,
+        //         placeholder: 'Select User Roles',
+        //         "empty-message": "No roles found",
+        //         options: roles,                
+        //     },
+        // ],
         'security': {
             isTitleHidden: false,
             isTransparent: false,
@@ -224,11 +236,13 @@ const userCreate = (req : UserCreateRequest): Promise<UserCreateResponse> => {
             apiClient.userCreate(req).then((apiClientResponse : UserCreateResponse) => {
                 resolve(apiClientResponse)
             }).catch((apiClientError) => {
-                reject(apiClientError)
+                console.log(apiClientError.message);
+                
+                reject(new Error(apiClientError))
             });
             }
             else{
-                reject(new Error('user_create_invalid'))
+                reject(new Error(result.error.message))
             }
         }).catch((err) => {
             reject(err)
