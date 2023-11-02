@@ -494,6 +494,15 @@ const router = createRouter({
           },
           component: () => import('@/views/Products/productFind.vue')
         },
+        {
+          path: '/translation',
+          name: 'translation_management',
+          meta: {
+            loadingType: 'table',
+            breadcrumbs: [{ label: "Translation", to: { name: 'home_view' } }, { label: "translation_management" }]
+          },
+          component: () => import('@/views/translationManagement.vue')
+        },
       ]
     },
     {
