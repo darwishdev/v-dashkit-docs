@@ -85,9 +85,6 @@ export const getDistrictFormProps =
 
             setTimeout(() => r(formProps), 100)
         })
-
-
-
-    }
+}
 
 

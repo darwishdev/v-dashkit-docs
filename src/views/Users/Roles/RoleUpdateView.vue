@@ -1,5 +1,4 @@
- 
-<script setup lang="ts">
+ <script setup lang="ts">
 import AppForm from 'v-dashkit/form/AppForm';
 import { useI18n } from 'vue-i18n';
 import { getRoleFormProps } from './RoleForm'
