@@ -1,34 +1,31 @@
 import formKitConfig from './formkit.config'
 import en from '@/locales/en.json'
 import ar from '@/locales/ar.json'
-import type { UserLoginResponse } from '@buf/ahmeddarwish_mln-rms-core.bufbuild_es/rms/v1/users_user_definitions_pb'
+// import type { UserLoginResponse } from '@buf/ahmeddarwish_mln-rms-core.bufbuild_es/rms/v1/users_user_definitions_pb'
+import type { UserLoginResponse } from '@/api/ApiTypes'
 import type { VueDashKitConfig, PermissionsHandler, UploadHandler, LoginHandler } from 'v-dashkit/types'
-import {
-    signInWithPassword,
-    sendOTPForEmail,
-    uploadFile,
-    sendResetPasswordForEmail,
-} from "@/api/Supabase"
-import apiClient from '@/api/ApiClient'
+
+import apiClient from '@/api/ApiMock'
 
 const loginHandler: LoginHandler<UserLoginResponse> = {
-    loginEndpoint: signInWithPassword,
-    senedOTPEndpoint: sendOTPForEmail,
-    sendResetLinkEndpoint: sendResetPasswordForEmail
+    loginEndpoint: apiClient.userLogin,
+    senedOTPEndpoint: apiClient.senedOTPEndpoint,
+    // loginImage: "initial/login.webp",
+    sendResetLinkEndpoint: apiClient.sendResetLinkEndpoint
 }
 
 const permissionsHandler: PermissionsHandler = {
-    permissionsListAllEndpoint: apiClient.permissionsList
+    permissionsListAllEndpoint: apiClient.permissionsList as any
 }
 
-const uploadHandler: UploadHandler = {
-    uploadEndpoint: uploadFile,
-}
+// const uploadHandler: UploadHandler = {
+//     uploadEndpoint: uploadFile,
+// }
 
 const config: VueDashKitConfig<typeof apiClient> = {
     formKitConfig: formKitConfig as any,
     loginHandler,
-    uploadHandler,
+    // uploadHandler,
     permissionsHandler,
     apiClient,
     baseImportDataUrl: import.meta.env.VITE_BASE_IMPORT_URL,

@@ -1,63 +1,101 @@
 <script setup lang="ts">
 import AppForm from 'v-dashkit/form/AppForm';
-import type { RoleCreateRequest, RoleCreateResponse } from '@buf/ahmeddarwish_mln-rms-core.bufbuild_es/rms/v1/users_role_definitions_pb'
-import type { AppFormProps } from 'v-dashkit/types';
-import apiClient from '@/api/ApiClient';
+// import type { RoleCreateRequest, RoleCreateResponse } from '@buf/ahmeddarwish_mln-rms-core.bufbuild_es/rms/v1/users_role_definitions_pb'
+import type { AppFormOptions, AppFormProps } from 'v-dashkit/types';
+import apiClient from '@/api/ApiMock';
 
 import { useI18n } from 'vue-i18n';
+import { useFormStore } from 'v-dashkit/stores';
 const { t } = useI18n()
 
+const formStore = useFormStore()
 
-const formProps: AppFormProps<RoleCreateRequest, RoleCreateResponse> = {
-    title: "role_create",
-    submitHandler: {
-        endpoint: apiClient.roleCreate,
-        redirectRoute: "roles_list",
-    },
-    sections: {
-        'role_info': [
-            {
-                $formkit: 'text',
-                prefixIcon: "tools",
-                outerClass: "col-12 sm:col-6 md:col-5",
-                name: "roleName",
-                validation: "required",
-                placeholder: t("roleName"),
-                label: t("roleName")
-            },
-            {
-                $formkit: 'textarea',
-                prefixIcon: "text",
-                outerClass: "col-12 sm:col-6 md:col-5",
-                name: "roleDescription",
-                placeholder: t("roleDescription"),
-                label: t("roleDescription")
-            }
+formStore.showActions = false
 
-        ],
-        'security': {
-            isTitleHidden: true,
-            isTransparent: true,
-            inputs: [
-                {
-                    $cmp: 'FormKit',
-                    props: {
-                        outerClass: "w-full",
-                        type: 'permissions',
-                        name: 'permissions',
 
-                        toggleable: false
+const formProps: AppFormProps<any, any> = {
+    context: {
+        storeKey: "step1",
+        title: "role_create",
+        submitHandler: {
+            endpoint: apiClient.productCreate,
+            redirectRoute: "roles_list",
+        },
+        options: {
+            // isSubmitHidden: true,
+            // isFormHeaderHidden: true,
+            // isSuccessNotificationHidden: true,
 
+            // isFormTransparent: true,
+        } as AppFormOptions,
+        sections: {
+            role_info: {
+                // isTitleHidden: true,
+                // isTransparent: true,
+                inputs: [
+                    {
+                        $formkit: 'text',
+                        prefixIcon: "tools",
+                        outerClass: "col-12 sm:col-6 md:col-5",
+                        name: "roleName",
+                        validation: "required",
+                        placeholder: t("roleName"),
+                        label: t("roleName")
                     }
-                }
-            ]
+
+                ]
+
+            }
         }
     }
 }
+
+const formProps2: AppFormProps<any, any> = {
+    context: {
+        storeKey: "step2",
+        title: "role_create",
+        submitHandler: {
+            endpoint: apiClient.productCreate,
+            redirectRoute: "roles_list",
+        },
+        options: {
+            isSubmitHidden: true,
+            isFormHeaderHidden: true,
+            isSuccessNotificationHidden: true,
+
+            isFormTransparent: true,
+        } as AppFormOptions,
+        sections: {
+            role_info: {
+                isTitleHidden: true,
+                // isTransparent: true,
+                inputs: [
+
+                    {
+                        $formkit: 'textarea',
+                        prefixIcon: "text",
+                        outerClass: "col-12 sm:col-6 md:col-5",
+                        name: "roleDescription",
+                        placeholder: t("roleDescription"),
+                        label: t("roleDescription")
+                    }
+
+                ]
+
+            }
+        }
+    }
+}
+
+
 </script>
 
 <template>
     <div>
+        <AppForm :context="formProps.context" />
+        <AppForm :context="formProps2.context" />
+
+        <!-- {{ formProps.context }} -->
         <h1 class="text-center">AppForm Component</h1>
         <p class="w-9 m-auto my-4 text-center">The AppForm component is a versatile form component designed to
             handle create and update features. It provides a flexible way to define form schemas and handle form
@@ -85,8 +123,10 @@ const formProps: AppFormProps<RoleCreateRequest, RoleCreateResponse> = {
                     <div class="border-round p-4" style="background-color: var(--color-card);">
                         <li>
                             <h3 class="flex">Description: <p class="mx-2">The sections object defines the sections and
-                                    fields of the form. Each section is represented by a key-value pair, where the key is
-                                    the section name and the value is an array or an object representing the fields and the
+                                    fields of the form. Each section is represented by a key-value pair, where the key
+                                    is
+                                    the section name and the value is an array or an object representing the fields and
+                                    the
                                     options for that section.</p>
                             </h3>
                             <p class="my-2 text-lg text-white">You can set some options for each section of inputs you
@@ -128,7 +168,8 @@ const formProps: AppFormProps<RoleCreateRequest, RoleCreateResponse> = {
                             </h3>
                         </li>
                         <li>
-                            <h3 class="flex">Custom Component Field: <p class="mx-2 w-9">You can use custom components as
+                            <h3 class="flex">Custom Component Field: <p class="mx-2 w-9">You can use custom components
+                                    as
                                     form fields
                                     by specifying the $cmp property in the field object. The custom component should be
                                     registered
@@ -147,7 +188,8 @@ const formProps: AppFormProps<RoleCreateRequest, RoleCreateResponse> = {
                         <li class="my-2">
                             <h3>endpoint (Function, required) :<br>
                                 <p class="mx-2 w-11">The function that will be
-                                    called when the form is submitted. This function should handle the form data submission
+                                    called when the form is submitted. This function should handle the form data
+                                    submission
                                     to your API or backend.</p>
                             </h3>
                             <h4 class="text-base m-2">example : <span class="font-bold text-white">endpoint:
@@ -167,15 +209,18 @@ const formProps: AppFormProps<RoleCreateRequest, RoleCreateResponse> = {
                             <h3 class="">mapFunction (Optional,Function) : <p class="mx-2">This optional function allows
                                     for manipulation of the request that we got from the form data , enabling the
                                     reformatting
-                                    of the request to align with specific requirements before executing the submit function
+                                    of the request to align with specific requirements before executing the submit
+                                    function
                                     so
                                     we can use the manipulated request in the submit funcion.
                                 </p>
                             </h3>
                         </li>
                         <li class="my-2">
-                            <h3 class="">callback (Optional,function) : <p class="mx-2">This optional property signifies an
-                                    optional function that can be employed post the submit function (API) to manipulate the
+                            <h3 class="">callback (Optional,function) : <p class="mx-2">This optional property signifies
+                                    an
+                                    optional function that can be employed post the submit function (API) to manipulate
+                                    the
                                     response or execute some logic.
                                 </p>
                             </h3>
@@ -188,28 +233,35 @@ const formProps: AppFormProps<RoleCreateRequest, RoleCreateResponse> = {
                 <ul class="my-2">
                     <div class="border-round p-4" style="background-color: var(--color-card);">
                         <li>
-                            <p class="my-2 text-white text-lg">The findHandler prop is a crucial property that determines
+                            <p class="my-2 text-white text-lg">The findHandler prop is a crucial property that
+                                determines
                                 the
                                 behavior of the AppForm component. It is used to differentiate between two scenarios:
                                 creating a new entry and updating an existing entry.</p>
                         </li>
                         <li>
-                            <p class="my-2 text-white text-lg">findHanlder contains the same properties of the submitHandler
+                            <p class="my-2 text-white text-lg">findHanlder contains the same properties of the
+                                submitHandler
                                 except for a redirect route</p>
                         </li>
                         <li>
                             <p class="my-2 text-white text-lg">When the findHandler prop is omitted or not provided, the
-                                AppForm component is used for the create feature. In this mode, the form is empty and ready
+                                AppForm component is used for the create feature. In this mode, the form is empty and
+                                ready
                                 to accept input for the creation of a new entry.</p>
                         </li>
                         <li>
-                            <p class="my-2 text-white text-lg">On the other hand, when the findHandler prop is included and
+                            <p class="my-2 text-white text-lg">On the other hand, when the findHandler prop is included
+                                and
                                 an endpoint is provided, the
-                                AppForm component is used for updating an existing entry. The findHandler function plays a
+                                AppForm component is used for updating an existing entry. The findHandler function plays
+                                a
                                 vital
-                                role in this scenario. It is responsible for retrieving the data associated with the entry
+                                role in this scenario. It is responsible for retrieving the data associated with the
+                                entry
                                 to be
-                                updated. This data is then used to populate the form fields, providing a convenient way to
+                                updated. This data is then used to populate the form fields, providing a convenient way
+                                to
                                 edit
                                 and modify the existing entry.</p>
                         </li>
@@ -218,6 +270,5 @@ const formProps: AppFormProps<RoleCreateRequest, RoleCreateResponse> = {
             </ol>
         </div>
         <h1 class="my-5">Example Usage : </h1>
-        <AppForm :formProps="formProps" />
     </div>
 </template>

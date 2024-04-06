@@ -3,7 +3,7 @@ import DataList from 'v-dashkit/data/DataList';
 import apiClient from '../api/ApiMock';
 import type { DataListProps, TableRouter, ITableHeader } from 'v-dashkit/types';
 import { TableHeaderText, TableHeaderCount, TableHeaderLink, TableHeaderImage } from 'v-dashkit/utils/table'
-import type { ProductListResponse, productsListRow } from '../api/ApiTypes';
+// import type { ProductListResponse, productsListRow } from '../api/ApiTypes';
 import { FilterMatchMode } from 'primevue/api';
 const { t } = useI18n()
 
@@ -133,23 +133,27 @@ const { records, deletedRecords, options } = await apiClient.productsList()
 
 
 
-const tableProps: DataListProps<ProductListResponse, productsListRow> = {
-    title: "roles",
-    dataKey,
-    records: records,
-    deletedRecords: deletedRecords,
-    viewRouter: viewRouter,
-    fetchFn: apiClient.productsList as any,
-    options: options! as any,
-    headers,
-    displayType: 'card'
+const tableProps: DataListProps<any, any> = {
+    context: {
+        title: "roles",
+        dataKey,
+        records: records,
+        deletedRecords: deletedRecords,
+        viewRouter: viewRouter,
+        fetchFn: apiClient.productsList as any,
+        options: options! as any,
+        headers
+        // displayType: 'card'
+    }
 }
 </script>
 <template>
     <div>
         <h1 class="text-center">DataList Component</h1>
-        <p class="w-9 m-auto my-4 text-center">The DataList component is designed to display data in a table or cards view.
-            It provides flexibility by allowing you to control its behavior through various props. This documentation will
+        <p class="w-9 m-auto my-4 text-center">The DataList component is designed to display data in a table or cards
+            view.
+            It provides flexibility by allowing you to control its behavior through various props. This documentation
+            will
             guide you on how to use the component and the props you need to pass to customize its functionality.
         </p>
         <h2>Props</h2>
@@ -193,7 +197,8 @@ const tableProps: DataListProps<ProductListResponse, productsListRow> = {
                 <ul class="my-2">
                     <div class="border-round p-4" style="background-color: var(--color-card);">
                         <li>
-                            <h3 class="flex">Description: <p class="mx-2">A function that fetches the data from api for the
+                            <h3 class="flex">Description: <p class="mx-2">A function that fetches the data from api for
+                                    the
                                     table to list.</p>
                             </h3>
                         </li>
@@ -231,7 +236,8 @@ const tableProps: DataListProps<ProductListResponse, productsListRow> = {
                             </h3>
                         </li>
                         <li>
-                            <h3 class="flex">Example usage:- <p class="mx-2">viewRouter: const viewRouter: TableRouter = {
+                            <h3 class="flex">Example usage:- <p class="mx-2">viewRouter: const viewRouter: TableRouter =
+                                    {
                                     name: "products_find",
                                     paramName: "id",
                                     paramColumnName: "productId"
@@ -246,12 +252,14 @@ const tableProps: DataListProps<ProductListResponse, productsListRow> = {
                 <ul class="my-2">
                     <div class="border-round p-4" style="background-color: var(--color-card);">
                         <li>
-                            <h3 class="flex">Description: <p class="mx-2">An array of deleted records that was returned as a
+                            <h3 class="flex">Description: <p class="mx-2">An array of deleted records that was returned
+                                    as a
                                     response from the api function to display separately in the table.</p>
                             </h3>
                         </li>
                         <li>
-                            <h3 class="flex">Example usage:- <p class="mx-2">const { records, deletedRecords, options } =
+                            <h3 class="flex">Example usage:- <p class="mx-2">const { records, deletedRecords, options }
+                                    =
                                     await apiClient.productsList({})</p>
                             </h3>
                         </li>
@@ -263,13 +271,16 @@ const tableProps: DataListProps<ProductListResponse, productsListRow> = {
                 <ul class="my-2">
                     <div class="border-round p-4" style="background-color: var(--color-card);">
                         <li>
-                            <h3 class="flex">Description: <p class="mx-2">Additional options that was returned as a response
-                                    from the api function to customize the table's behavior depending on the role and the
+                            <h3 class="flex">Description: <p class="mx-2">Additional options that was returned as a
+                                    response
+                                    from the api function to customize the table's behavior depending on the role and
+                                    the
                                     permissions of the logged in user.</p>
                             </h3>
                         </li>
                         <li>
-                            <h3 class="flex">Example usage:- <p class="mx-2">const { records, deletedRecords, options } =
+                            <h3 class="flex">Example usage:- <p class="mx-2">const { records, deletedRecords, options }
+                                    =
                                     await apiClient.productsList({})</p>
                             </h3>
                         </li>
@@ -282,14 +293,17 @@ const tableProps: DataListProps<ProductListResponse, productsListRow> = {
                     <div class="border-round p-4" style="background-color: var(--color-card);">
                         <li>
                             <h3 class="flex">Description: <p class="mx-2">This prop is used to define the type that the
-                                    component will be displayed in. The displayType prop has two options : 'card' or 'table'
-                                    <br>if you set the displayType to 'card' the data will be displayed in cards instead of
+                                    component will be displayed in. The displayType prop has two options : 'card' or
+                                    'table'
+                                    <br>if you set the displayType to 'card' the data will be displayed in cards instead
+                                    of
                                     being displayed in a table.
                                 </p>
                             </h3>
                         </li>
                         <li>
-                            <h3 class="flex">Example usage:- <p class="mx-2">displayType : 'card' .. we will show an example
+                            <h3 class="flex">Example usage:- <p class="mx-2">displayType : 'card' .. we will show an
+                                    example
                                     on using the card displayType </p>
                             </h3>
                         </li>
@@ -300,7 +314,8 @@ const tableProps: DataListProps<ProductListResponse, productsListRow> = {
                 </li>
                 <div class="border-round p-4 ml-5 my-2" style="background-color: var(--color-card);">
                     <h3>
-                        <p class="">The headers prop is used to define the headers of the table that will be displayed to
+                        <p class="">The headers prop is used to define the headers of the table that will be displayed
+                            to
                             show the data.
                             It allows you to customize the appearance and filtering behavior of each column. The headers
                             prop should
@@ -338,7 +353,8 @@ const tableProps: DataListProps<ProductListResponse, productsListRow> = {
                         </h3>
                     </div>
                     <h3>
-                        <p>In this example, the headers object contains multiple key-value pairs, where each key represents
+                        <p>In this example, the headers object contains multiple key-value pairs, where each key
+                            represents
                             a column
                             identifier (e.g., 'productId', 'productName', etc.), and the value is an instance of the
                             appropriate ITableHeader
@@ -365,7 +381,8 @@ const tableProps: DataListProps<ProductListResponse, productsListRow> = {
                             </h3>
                         </li>
                         <li>
-                            <h3 class="flex">filter (Any, optional) : <p class="mx-2">Configuration for applying filters to
+                            <h3 class="flex">filter (Any, optional) : <p class="mx-2">Configuration for applying filters
+                                    to
                                     the column .. we will talk about it soon</p>
                             </h3>
                         </li>
@@ -375,7 +392,8 @@ const tableProps: DataListProps<ProductListResponse, productsListRow> = {
                             </h3>
                         </li>
                         <li>
-                            <h3 class="flex">renderHtml (Function, optional) : <p class="mx-2">A function that allows custom
+                            <h3 class="flex">renderHtml (Function, optional) : <p class="mx-2">A function that allows
+                                    custom
                                     rendering of the column header content.</p>
                             </h3>
                         </li>
@@ -387,21 +405,22 @@ const tableProps: DataListProps<ProductListResponse, productsListRow> = {
         <h2 class="my-5">Here's a simple example for using the component with basic props and options</h2>
 
     </div>
-    <DataList :fetchFn="tableProps.fetchFn" :viewRouter="tableProps.viewRouter" :title="tableProps.title"
-        :dataKey="tableProps.dataKey" :records="records" :options="tableProps.options" :deletedRecords="deletedRecords"
-        :headers="tableProps.headers" />
+    <DataList :context="tableProps.context" />
 
     <h2 class="my-5">Filtering Feature</h2>
     <div class="border-round p-4" style="background-color: var(--color-card);">
         <h3>
-            <p>The DataList component in Vue.js provides a powerful filtering feature that allows you to filter data based
+            <p>The DataList component in Vue.js provides a powerful filtering feature that allows you to filter data
+                based
                 on the
-                fields you specify in the headers prop. This feature enables users to search and narrow down the displayed
+                fields you specify in the headers prop. This feature enables users to search and narrow down the
+                displayed
                 data according
                 to their preferences.</p>
         </h3>
         <h2 class="my-3">Example Usage :</h2>
-        <p>Here's an example that demonstrates the usage of the filtering feature and defining the filters schema inside the
+        <p>Here's an example that demonstrates the usage of the filtering feature and defining the filters schema inside
+            the
             headers prop :</p>
         <div class="border-round p-4" style="background-color: var(--color-card);">
             <h3>
@@ -451,35 +470,41 @@ const tableProps: DataListProps<ProductListResponse, productsListRow> = {
                 <p>
                     In this example, the headers object contains multiple key-value pairs, where each key represents a
                     column identifier
-                    (e.g., 'productId', 'productName', etc.), and the value is an instance of the appropriate ITableHeader
+                    (e.g., 'productId', 'productName', etc.), and the value is an instance of the appropriate
+                    ITableHeader
                     implementation
                     (e.g., TableHeaderLink, TableHeaderText, etc.).
                 </p>
             </h3>
             <h3 class="my-3">isGlobalFilter property<p> is responsible for making the column globally accessible for
                     filtering from the data using
-                    the global search bar of the component. By setting this property to true, users can search for specific
+                    the global search bar of the component. By setting this property to true, users can search for
+                    specific
                     values across
                     this column rows.</p>
             </h3>
-            <h3 class="my-3">filter property<p> allows you to define the specific filtering behavior for each column. Within
+            <h3 class="my-3">filter property<p> allows you to define the specific filtering behavior for each column.
+                    Within
                     the filter object,
                     you can specify various options to customize the filtering experience.</p>
             </h3>
             <ul class="my-4">
                 <div class="border-round p-4" style="background-color: var(--color-card);">
                     <li class="my-3">
-                        <h3 class="flex">matchMode: <p class="mx-2">This property defines the filter mode to be used for the
+                        <h3 class="flex">matchMode: <p class="mx-2">This property defines the filter mode to be used for
+                                the
                                 column
                                 data. You can import the FilterMatchMode function from PrimeVue, which provides multiple
                                 options for matching
-                                modes (e.g., CONTAINS, STARTS_WITH, ENDS_WITH, etc.). This determines how the filtering will
+                                modes (e.g., CONTAINS, STARTS_WITH, ENDS_WITH, etc.). This determines how the filtering
+                                will
                                 be applied to
                                 the column values.</p>
                         </h3>
                     </li>
                     <li>
-                        <h3 class="flex">input:<p class="mx-2"> The input object defines formkit schema for the input field
+                        <h3 class="flex">input:<p class="mx-2"> The input object defines formkit schema for the input
+                                field
                                 used to filter the column. It allows you to customize the appearance and behavior of the
                                 input field.</p>
                         </h3>
@@ -488,7 +513,8 @@ const tableProps: DataListProps<ProductListResponse, productsListRow> = {
             </ul>
         </div>
     </div>
-    <h2 class="my-5">Here's an example for using the appTable component with using the headers 'isGlobal' property to false
+    <!-- <h2 class="my-5">Here's an example for using the appTable component with using the headers 'isGlobal' property to
+        false
         except for the 'productCategory' column
         so the search bar will be filtering depending on the category name value
     </h2>
@@ -496,12 +522,13 @@ const tableProps: DataListProps<ProductListResponse, productsListRow> = {
         :dataKey="tableProps.dataKey" :records="records" :options="tableProps.options" :deletedRecords="deletedRecords"
         :headers="headers2" />
 
-    <h2 class="my-5">Here's an example for using the appTable component with setting the displayType property to 'card' :
+    <h2 class="my-5">Here's an example for using the appTable component with setting the displayType property to 'card'
+        :
     </h2>
 
-    <DataList class="sm-column" :fetchFn="tableProps.fetchFn" :viewRouter="tableProps.viewRouter" :title="tableProps.title"
-        :dataKey="tableProps.dataKey" :records="records" :options="tableProps.options" :deletedRecords="deletedRecords"
-        :headers="headers2" :displayType="tableProps.displayType">
+    <DataList class="sm-column" :fetchFn="tableProps.fetchFn" :viewRouter="tableProps.viewRouter"
+        :title="tableProps.title" :dataKey="tableProps.dataKey" :records="records" :options="tableProps.options"
+        :deletedRecords="deletedRecords" :headers="headers2" :displayType="tableProps.displayType">
         <template #start="{ data }">
             <div class="flex-row md:flex-column">
                 <div class="mx-3">
@@ -514,46 +541,49 @@ const tableProps: DataListProps<ProductListResponse, productsListRow> = {
                 </div>
             </div>
         </template>
-        <template #end="{ data }">
+<template #end="{ data }">
             <div>
                 <h3 class="my-1 text-center"> {{ data.productName }}</h3>
                 <h5 class="text-center"> {{ data.productCategory }}</h5>
             </div>
         </template>
-    </DataList>
+</DataList>
 
-    <h2 class="mt-4">Note :</h2>
-    <h3 class="mt-2 mb-5">
-        <p>we have toggled the <span class="text-xl font-bold">'sm-column'</span> class when using the appTable component
-            displayed as cards to handle designing responsive cards</p>
+<h2 class="mt-4">Note :</h2>
+<h3 class="mt-2 mb-5">
+    <p>we have toggled the <span class="text-xl font-bold">'sm-column'</span> class when using the appTable
+        component
+        displayed as cards to handle designing responsive cards</p>
+</h3>
+
+<h2 class="my-3">BreadCrumbs</h2>
+<div class="border-round p-4" style="background-color: var(--color-card);">
+    <h3>Defining Breadcrumbs in the Router File :</h3>
+    <h3 class="my-2">
+        <p>To define breadcrumbs for a specific route, you need to add a breadcrumbs property to the meta object of
+            that
+            route.
+            The breadcrumbs property should be an array of breadcrumb objects, where each object represents a step
+            in
+            the breadcrumb
+            trail. Each breadcrumb object should include a label and a to property.
+        </p>
     </h3>
-
-    <h2 class="my-3">BreadCrumbs</h2>
-    <div class="border-round p-4" style="background-color: var(--color-card);">
-        <h3>Defining Breadcrumbs in the Router File :</h3>
-        <h3 class="my-2">
-            <p>To define breadcrumbs for a specific route, you need to add a breadcrumbs property to the meta object of that
-                route.
-                The breadcrumbs property should be an array of breadcrumb objects, where each object represents a step in
-                the breadcrumb
-                trail. Each breadcrumb object should include a label and a to property.
-            </p>
-        </h3>
-        <h3>Here's an example of how to define breadcrumbs in the router file :</h3>
-        <div class="border-round p-4 my-2" style="background-color: var(--color-card);">
-            {
-            path: '/appTable',<br>
-            name: 'app_table',<br>
-            meta: {<br>
-            breadcrumbs: [<br>
-            { label: "AppTable Docs", to: { name: 'app_table' } },<br>
-            { label: "Docs" }<br>
-            ]<br>
-            },<br>
-            component: () => import('../views/appTableDocs.vue')<br>
-            },
-        </div>
+    <h3>Here's an example of how to define breadcrumbs in the router file :</h3>
+    <div class="border-round p-4 my-2" style="background-color: var(--color-card);">
+        {
+        path: '/appTable',<br>
+        name: 'app_table',<br>
+        meta: {<br>
+        breadcrumbs: [<br>
+        { label: "AppTable Docs", to: { name: 'app_table' } },<br>
+        { label: "Docs" }<br>
+        ]<br>
+        },<br>
+        component: () => import('../views/appTableDocs.vue')<br>
+        },
     </div>
+</div> -->
 </template>
 
 <style lang="scss">

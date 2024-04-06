@@ -37,7 +37,7 @@ onMounted(() => {
   <DynamicDialog />
   <AppNotification />
 </template>
- 
+
 
 <style>
 .app-loading {
